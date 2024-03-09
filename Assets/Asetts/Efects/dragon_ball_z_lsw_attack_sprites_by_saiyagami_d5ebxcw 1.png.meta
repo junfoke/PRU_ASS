@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac0ea16b3a9bc3c41951c81d8f9c4ca0
+guid: 28b9a60ba6f6c7c41af0060127a62f18
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -5510,8 +5510,8 @@ TextureImporter:
         serializedVersion: 2
         x: 2750
         y: 2361
-        width: 89
-        height: 211
+        width: 88
+        height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5553,10 +5553,10 @@ TextureImporter:
         x: 2936
         y: 2359
         width: 87
-        height: 215
+        height: 106
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -5573,11 +5573,11 @@ TextureImporter:
         serializedVersion: 2
         x: 3025
         y: 2357
-        width: 328
-        height: 217
+        width: 84
+        height: 109
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 2}
       outline: []
       physicsShape: []
       tessellationDetail: 0
