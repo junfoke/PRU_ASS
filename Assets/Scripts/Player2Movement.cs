@@ -17,6 +17,10 @@ public class Player2Movement : MonoBehaviour
 
     private enum MovementState { idle, left, right, dam, da }
     private MovementState state = MovementState.idle;
+    private enum MovementStateShoot { idle, kame, banChuong }
+    float action = 0f;
+    float shootAction = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +33,10 @@ public class Player2Movement : MonoBehaviour
     void Update()
     {
         float dirX = 0f; // Hướng di chuyển theo trục x
-        float action = 0f; // Hành động
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player2_Idle"))
+        {
+            action = 0f;
+        }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -40,25 +47,36 @@ public class Player2Movement : MonoBehaviour
             dirX = 1f; // Di chuyển sang phải
         }
 
-        if (Input.GetKey(KeyCode.Alpha4))
+        if (Input.GetKey(KeyCode.Keypad4))
         {
             action = -1f; // Hành động dam
         }
-        else if (Input.GetKey(KeyCode.Alpha5))
+        else if (Input.GetKey(KeyCode.Keypad5))
         {
             action = 1f; // Hành động da
+        }
+
+        if (Input.GetKey(KeyCode.Keypad6))
+        {
+            shootAction = 1f;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Keypad6))
+        {
+            shootAction = 2f;
         }
 
         // Thay đổi vận tốc của đối tượng
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
         // Cập nhật trạng thái hoạt hình của đối tượng
-        UpdateAnimationState(dirX, action);
+        UpdateAnimationState(dirX, action, shootAction);
     }
 
-    private void UpdateAnimationState(float dirX, float action)
+    private void UpdateAnimationState(float dirX, float action, float shootAction)
     {
         MovementState state;
+        MovementStateShoot shootState;
 
         if (action != 0f)
         {
@@ -73,6 +91,20 @@ public class Player2Movement : MonoBehaviour
             state = MovementState.idle; // Đứng yên
         }
 
+        if (shootAction == 1f)
+        {
+            shootState = MovementStateShoot.kame;
+        }
+        else if (shootAction == 2f)
+        {
+            shootState = MovementStateShoot.banChuong;
+        }
+        else
+        {
+            shootState = MovementStateShoot.idle;
+        }
+
+        anim.SetInteger("shootState", (int)shootState);
         anim.SetInteger("state", (int)state); // Cập nhật trạng thái hoạt hình
     }
 }

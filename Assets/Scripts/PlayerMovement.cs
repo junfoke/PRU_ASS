@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,7 +17,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 14f;
 
     private enum MovementState { idle, left, right, dam, da, jump, fall }
+    private enum MovementStateShoot { idle, kame, banChuong }
     private MovementState state = MovementState.idle;
+    float action = 0f;
+    float shootAction = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +34,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float dirX = 0f; // Hướng di chuyển theo trục x
-        float action = 0f; // Hành động
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Player_1_Idle"))
+        {
+            action = 0f;
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -53,16 +62,26 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
+        if (Input.GetKey(KeyCode.F))
+        {
+            shootAction = 1f;
+        }
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            shootAction = 2f;
+        }
         // Thay đổi vận tốc của đối tượng
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
         // Cập nhật trạng thái hoạt hình của đối tượng
-        UpdateAnimationState(dirX, action);
+        UpdateAnimationState(dirX, action, shootAction);
     }
 
-    private void UpdateAnimationState(float dirX, float action)
+    private void UpdateAnimationState(float dirX, float action, float shootAction)
     {
         MovementState state;
+        MovementStateShoot shootState;
 
         if (action != 0f)
         {
@@ -77,6 +96,19 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.idle; // Đứng yên
         }
 
+        if (shootAction == 1f)
+        {
+            shootState = MovementStateShoot.kame;
+        }
+        else if (shootAction == 2f)
+        {
+            shootState = MovementStateShoot.banChuong;
+        }
+        else
+        {
+            shootState = MovementStateShoot.idle;
+        }
+
         if (rb.velocity.y > .1f)
         {
             state = MovementState.jump;
@@ -86,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.fall;
         }
 
+        anim.SetInteger("shootState", (int)shootState);
         anim.SetInteger("state", (int)state); // Cập nhật trạng thái hoạt hình
     }
 
