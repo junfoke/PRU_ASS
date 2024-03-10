@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5634081067801196483}
   - component: {fileID: 5634081067801196480}
   - component: {fileID: 5634081067801196481}
-  - component: {fileID: 2231737352952749758}
   - component: {fileID: 1431996766468783143}
+  - component: {fileID: 3837933535576166784}
   - component: {fileID: 3271664461338332427}
   - component: {fileID: 6043224004221713612}
   - component: {fileID: 3026076857942612990}
@@ -106,24 +106,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2231737352952749758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5634081067801194558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c9fb44ee60d0f04c823e1f14f083e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  "da\xF1oDeLaBala": 15
-  velocity: {x: 0, y: 0}
-  direction: {x: 0, y: -1}
-  timeDestroySelf: 1
-  comparador: Jugador1
-  comparador2: Jugador2
 --- !u!95 &1431996766468783143
 Animator:
   serializedVersion: 5
@@ -145,6 +127,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3837933535576166784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634081067801194558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26c61402eafbd748a8631e7e53cc260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletDamage: 15
+  velocity: {x: 0, y: 0}
+  direction: {x: 0, y: -1}
+  timeDestroySelf: 1
+  comparador: Player
+  comparador2: Player2
 --- !u!330 &3271664461338332427
 ParticleSystemForceField:
   m_ObjectHideFlags: 0
