@@ -9,6 +9,8 @@ TagManager:
   - Bala1
   - Jugador1
   - Enemy
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX

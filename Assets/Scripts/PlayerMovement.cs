@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     float action = 0f;
     float shootAction = 0f;
 
+    [SerializeField] ManageHealth ManageHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,16 +50,16 @@ public class PlayerMovement : MonoBehaviour
             dirX = 1f; // Di chuyển sang phải
         }
 
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J))
         {
             action = -1f; // Hành động dam
         }
-        else if (Input.GetKey(KeyCode.K))
+        else if (Input.GetKeyDown(KeyCode.K))
         {
             action = 1f; // Hành động da
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.W)) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }

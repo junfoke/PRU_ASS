@@ -13,13 +13,15 @@ public class Player2Movement : MonoBehaviour
 
 
     [SerializeField] private float moveSpeed = 7f;
-    //[SerializeField] private float jumpForce = 14f;
+    [SerializeField] private float jumpForce = 14f;
 
     private enum MovementState { idle, left, right, dam, da }
     private MovementState state = MovementState.idle;
     private enum MovementStateShoot { idle, kame, banChuong }
     float action = 0f;
     float shootAction = 0f;
+
+    [SerializeField] private LayerMask jumpableGround;
 
     // Start is called before the first frame update
     void Start()
@@ -47,13 +49,18 @@ public class Player2Movement : MonoBehaviour
             dirX = 1f; // Di chuyển sang phải
         }
 
-        if (Input.GetKey(KeyCode.Keypad4))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             action = -1f; // Hành động dam
         }
-        else if (Input.GetKey(KeyCode.Keypad5))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             action = 1f; // Hành động da
+        }
+
+        if ((Input.GetKey(KeyCode.UpArrow)) && IsGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
         if (Input.GetKey(KeyCode.Keypad6))
@@ -73,6 +80,10 @@ public class Player2Movement : MonoBehaviour
         UpdateAnimationState(dirX, action, shootAction);
     }
 
+    private bool IsGrounded()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
     private void UpdateAnimationState(float dirX, float action, float shootAction)
     {
         MovementState state;
