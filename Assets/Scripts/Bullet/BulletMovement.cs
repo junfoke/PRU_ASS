@@ -3,13 +3,15 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class BulletMovement : MonoBehaviour
 {
+    public ManageHealth ManageHealth;
     private float speed = 10f;
-    [SerializeField] private int BulletDamage; 
+    [SerializeField] private int BulletDamage;
     [SerializeField] Vector2 velocity;
     [SerializeField] Vector2 direction = new Vector2(0, 1);
     [SerializeField] int timeDestroySelf;
-    [SerializeField] private string comparador;
-    [SerializeField] private string comparador2;
+    [SerializeField] private string Player1;
+    [SerializeField] private string Player2;
+
 
     private void Start()
     {
@@ -35,26 +37,19 @@ public class BulletMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.CompareTag(comparador))
-        //{
-        //    Player player = collision.GetComponent<Player>();
-        //    if (player != null)
-        //    {
-        //        player.TomarDaño(dañoDeLaBala); 
-        //    }
+        if (collision.CompareTag(Player1))
+        {
 
-        //    Destroy(gameObject);
-        //}
+            ManageHealth.Manage_HP(1, -BulletDamage);
 
-        //if (collision.CompareTag(comparador2))
-        //{
-        //    Player2 player2 = collision.GetComponent<Player2>();
-        //    if (player2 != null)
-        //    {
-        //        player2.TomarDaño(dañoDeLaBala); // Usa dañoDeLaBala en lugar de dañoGolpe
-        //    }
+            Destroy(gameObject);
+        }
 
-        //    Destroy(gameObject);
-        //}
+        if (collision.CompareTag(Player2))
+        {
+            ManageHealth.Manage_HP(2, -BulletDamage);
+
+            Destroy(gameObject);
+        }
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] float moveSpeed; // Agregar esta línea para definir la velocidad
+    [SerializeField] float moveSpeed; 
     private Rigidbody2D rb;
-    private Vector2 moveDirection = Vector2.right; // Dirección predeterminada
+    private Vector2 moveDirection = Vector2.right; 
     // Start is called before the first frame update
     void Start()
     {

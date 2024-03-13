@@ -7,6 +7,7 @@ public class EnergyBullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float damage;
+    public ManageHealth ManageHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,22 +20,20 @@ public class EnergyBullet : MonoBehaviour
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.gameObject.CompareTag("Jugador2"))
-    //    {
-    //        other.GetComponent<Player2>().TomarDaño(damage);
-    //        Destroy(gameObject);
-    //    }
-
-
-    //}
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player2"))
+        {
+            ManageHealth.Manage_HP(2, damage);
+            Destroy(gameObject);
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Bala2"))
         {
-            Debug.Log("La bala 2 colisionó con otra bala");
+            Debug.Log("Bullet 2 collided with another bullet");
             Destroy(gameObject);
             Destroy(other.gameObject); // Destroy the other bullet here
             Destroy(this.gameObject);
