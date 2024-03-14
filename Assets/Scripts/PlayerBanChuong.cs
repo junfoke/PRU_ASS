@@ -6,7 +6,7 @@ public class PlayerBanChuong : MonoBehaviour
 {
     private Rigidbody2D rb;
     private BoxCollider2D coll;
-    private Animator anim;
+    //private Animator anim;
     private float speed = 0;
     private Vector2 size = new Vector2(0.5f, 0.5f);
     private float time = 0; // Thời gian để bắt đầu vận chưởng
@@ -14,32 +14,55 @@ public class PlayerBanChuong : MonoBehaviour
 
     [SerializeField]
     public GameObject chuongPosition;
+    [SerializeField]
+    public GameObject prefabs;
+
+    List<GameObject> ChuongPool;
+    int poolSize = 10;
+    GameObject Chuong;
+    ChuongControl script;
+
+    Vector2 position;
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         gameObject.transform.localScale = size;
+        ChuongPool = new List<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject bullet = Instantiate(prefabs);
+            bullet.SetActive(false); // đánh dấu chưa dùng
+            ChuongPool.Add(bullet);
+        }
+        Chuong = new GameObject();
+        position = new Vector2();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        Vector2 position = new Vector2(chuongPosition.transform.position.x, chuongPosition.transform.position.y);
-
+        //Vector2 position = new Vector2(chuongPosition.transform.position.x, chuongPosition.transform.position.y);
+        //Debug.Log("test:   " + Chuong.transform.position.x);
         if (Input.GetKeyDown(KeyCode.F))
         {
-            gameObject.transform.localScale = size;
+            Chuong = GetFreeChuong();
+            script = Chuong.GetComponent<ChuongControl>();
+            //Chuong.transform.localScale = size;
+            script.size = size;
             speed = 0;
             time = 0;
+            position = new Vector2(chuongPosition.transform.position.x, chuongPosition.transform.position.y);
         }
         if (Input.GetKey(KeyCode.F))
         {
             time += Time.deltaTime;
             if (time > 0.48f)
             {
-                gameObject.transform.position = position;
-                gameObject.transform.localScale = new Vector2(transform.localScale.x + Time.deltaTime * 2, transform.localScale.y + Time.deltaTime * 2);
-                anim.SetBool("shoot", true);
+                Chuong.transform.position = position;
+                //Chuong.transform.localScale = new Vector2(transform.localScale.x + Time.deltaTime * 2, transform.localScale.y + Time.deltaTime * 2);
+                script.speedChangeSize = 2;
+                script.anim.SetBool("shoot", true);
             }
         }
 
@@ -47,7 +70,8 @@ public class PlayerBanChuong : MonoBehaviour
         {
             if (time > 0.48f)
             {
-                speed = 10;
+                script.speed = 10;
+                script.speedChangeSize = 0;
                 time = 0;
             }
             else
@@ -62,18 +86,28 @@ public class PlayerBanChuong : MonoBehaviour
             time01 += Time.deltaTime;
             if (time01 > 0.48f)
             {
-                gameObject.transform.position = position;
-                gameObject.transform.localScale = size;
-                anim.SetBool("shoot", true);
-                speed = 10;
+                Chuong.transform.position = position;
+                Chuong.transform.localScale = size;
+                script.anim.SetBool("shoot", true);
+                script.speed = 10;
                 time = 0;
                 time01 = 0;
             }
         }
 
-        gameObject.transform.position = new Vector3(
-                    transform.position.x + Time.deltaTime * speed,
-                    transform.position.y, -1
-                );
+    }
+
+    GameObject GetFreeChuong()
+    {
+        foreach (var item in ChuongPool)
+        {
+            if (item.activeSelf == false)
+            {
+                item.SetActive(true);
+                return item;
+            }
+
+        }
+        return null;
     }
 }

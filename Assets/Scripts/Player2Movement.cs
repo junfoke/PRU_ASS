@@ -49,11 +49,11 @@ public class Player2Movement : MonoBehaviour
             dirX = 1f; // Di chuyển sang phải
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Keypad1))
         {
             action = -1f; // Hành động dam
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Keypad2))
         {
             action = 1f; // Hành động da
         }
