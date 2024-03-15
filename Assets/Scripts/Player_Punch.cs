@@ -12,7 +12,7 @@ public class Player_Punch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,10 +21,10 @@ public class Player_Punch : MonoBehaviour
         reloadTime += Time.deltaTime;
 
         //Player 1 punch
-        if (Input.GetKeyDown(KeyCode.J) && reloadTime>=0.5 && GameStart.Player1_Resource.Mana>0)
+        if (Input.GetKeyDown(KeyCode.J) && reloadTime >= 0.5 && GameStart.Player1_Resource.Mana > 0)
         {
             //Minus mana
-            ManageHealth.Manage_Mana(1, -5);
+            //ManageHealth.Manage_Mana(1, -5);
 
             // Find all GameObjects with the specified tag
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player2");
@@ -53,7 +53,7 @@ public class Player_Punch : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K) && reloadTime >= 0.5 && GameStart.Player1_Resource.Mana > 0)
         {
             //Minus mana
-            ManageHealth.Manage_Mana(1, -7.5f);
+            //ManageHealth.Manage_Mana(1, -7.5f);
 
             // Find all GameObjects with the specified tag
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player2");
@@ -80,10 +80,10 @@ public class Player_Punch : MonoBehaviour
         }
 
         //Player 2 punch
-        if (Input.GetKeyDown(KeyCode.Alpha1) && reloadTime >= 0.5 && GameStart.Player2_Resource.Mana > 0)
+        if (Input.GetKeyDown(KeyCode.Keypad1) && reloadTime >= 0.5 && GameStart.Player2_Resource.Mana > 0)
         {
             //Minus mana
-            ManageHealth.Manage_Mana(2, -5);
+            //ManageHealth.Manage_Mana(2, -5);
 
             // Find all GameObjects with the specified tag
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player1");
@@ -108,10 +108,10 @@ public class Player_Punch : MonoBehaviour
             //Reset reloadTime 
             reloadTime = 0;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && reloadTime >= 0.5 && GameStart.Player2_Resource.Mana > 0)
+        if (Input.GetKeyDown(KeyCode.Keypad2) && reloadTime >= 0.5 && GameStart.Player2_Resource.Mana > 0)
         {
             //Minus mana
-            ManageHealth.Manage_Mana(2, -7.5f);
+            //ManageHealth.Manage_Mana(2, -7.5f);
 
             // Find all GameObjects with the specified tag
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player1");
