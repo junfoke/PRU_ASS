@@ -9,6 +9,7 @@ public class ChuongControl : MonoBehaviour
     public Animator anim;
     public float speed;
     public Vector2 size;
+    private Vector2 size2 = new Vector2(1.7f, 1.7f);
     public float speedChangeSize;
 
     // Start is called before the first frame update
@@ -27,7 +28,10 @@ public class ChuongControl : MonoBehaviour
                     transform.position.x + Time.deltaTime * speed,
                     transform.position.y, -1
                 );
-        transform.localScale = new Vector2(transform.localScale.x + Time.deltaTime * speedChangeSize, transform.localScale.y + Time.deltaTime * speedChangeSize);
+        if (transform.localScale.x <= size2.x)
+        {
+            transform.localScale = new Vector2(transform.localScale.x + Time.deltaTime * speedChangeSize, transform.localScale.y + Time.deltaTime * speedChangeSize);
+        }
     }
 
 
