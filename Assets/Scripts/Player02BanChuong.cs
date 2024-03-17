@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Player02BanChuong : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private BoxCollider2D coll;
-    private Animator anim;
     private float speed = 0;
     private float time = 0;
     private Vector2 size1 = new Vector2(0.3f, 0.3f);
@@ -15,50 +13,46 @@ public class Player02BanChuong : MonoBehaviour
     private bool isMoving = false;
 
     [SerializeField]
-    public GameObject chuongPosition1;
-    public GameObject chuongPosition2;
+    private GameObject chuongPosition1;
+    [SerializeField]
+    private GameObject chuongPosition2;
+    [SerializeField]
+    public GameObject prefabs;
+    List<GameObject> ChuongPool;
+    int poolSize = 10;
+
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
-        //gameObject.transform.localScale = size1;
+        ChuongPool = new List<GameObject>();
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject chuong = Instantiate(prefabs);
+            chuong.SetActive(false); // đánh dấu chưa dùng
+            ChuongPool.Add(chuong);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Keypad6))
+        if (Input.GetKeyDown(KeyCode.Keypad6))
         {
-            transform.localScale = size1;
-            transform.position = chuongPosition1.transform.position;
-            anim.SetBool("shoot", true);
-            isMoving = false;
-            time = 0;
-            speed = 0;
+            GameObject chuong = GetFreeChuong();
+            chuong.transform.position = new Vector2(chuongPosition1.transform.position.x, chuongPosition1.transform.position.y);
         }
-
-        if (Input.GetKeyUp(KeyCode.Keypad6))
+    }
+    GameObject GetFreeChuong()
+    {
+        foreach (var item in ChuongPool)
         {
-            isMoving = true;
-        }
-
-        if (isMoving)
-        {
-            time += Time.deltaTime;
-            if (time >= 0.35f)
+            if (item.activeSelf == false)
             {
-                transform.localScale = size2;
-                transform.Translate(chuongPosition2.transform.position - transform.position);
-                speed = 10;
-                time = 0;
-                isMoving = false;
+                item.SetActive(true);
+                return item;
             }
+
         }
-
-        gameObject.transform.position = new Vector3(
-                    transform.position.x - Time.deltaTime * speed,
-                    transform.position.y, -1
-                );
-
+        return null;
     }
 }

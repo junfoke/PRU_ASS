@@ -1,21 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class ChuongControl : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private BoxCollider2D coll;
+    private CircleCollider2D coll;
     public Animator anim;
-    public float speed;
-    public Vector2 size;
+    private float speed;
+    private Vector2 size = new Vector2(0.5f, 0.5f);
     private Vector2 size2 = new Vector2(1.7f, 1.7f);
-    public float speedChangeSize;
+    private float speedChangeSize;
 
+    [SerializeField] private string Player2;
+    public ManageHealth ManageHealth;
+
+    private float timeVanChuong = 0;
+    private float timeComplete = 0;
     // Start is called before the first frame update
     void Start()
     {
+
         anim = GetComponent<Animator>();
+        coll = GetComponent<CircleCollider2D>();
         speed = 0;
         transform.localScale = size;
         speedChangeSize = 0;
@@ -24,15 +33,66 @@ public class ChuongControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(
+        if (Input.GetKey(KeyCode.F) && speed == 0)
+        {
+            timeVanChuong += Time.deltaTime;
+            if (timeVanChuong > 0.48f)
+            {
+                speedChangeSize = 2;
+                anim.SetBool("shoot", true);
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.F) && speed == 0)
+        {
+            if (timeVanChuong > 0.48f)
+            {
+                speed = 10;
+                speedChangeSize = 0;
+                timeVanChuong = 0;
+            }
+            else
+            {
+                timeComplete = timeVanChuong;
+            }
+
+        }
+
+        if (timeVanChuong < 0.48f && timeVanChuong > 0 && !Input.GetKey(KeyCode.F) && speed == 0)
+        {
+            timeComplete += Time.deltaTime;
+            if (timeComplete > 0.48f)
+            {
+                transform.position = new Vector2(transform.position.x - 0.16f, transform.position.y);
+                anim.SetBool("shoot", true);
+                speed = 10;
+                timeVanChuong = 0;
+                timeComplete = 0;
+            }
+        }
+
+        transform.position = new Vector2(
                     transform.position.x + Time.deltaTime * speed,
-                    transform.position.y, -1
+                    transform.position.y
                 );
         if (transform.localScale.x <= size2.x)
         {
             transform.localScale = new Vector2(transform.localScale.x + Time.deltaTime * speedChangeSize, transform.localScale.y + Time.deltaTime * speedChangeSize);
         }
+        coll.radius = gameObject.transform.localScale.x * (0.23f / 0.8f);
     }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Player2))
+        {
+            ManageHealth.Manage_HP(2, -20f);
+            gameObject.SetActive(false);
+            speed = 0; 
+            speedChangeSize = 0; 
+            timeVanChuong = 0;
+            transform.localScale = size;
+        }
+    }
 
 }
