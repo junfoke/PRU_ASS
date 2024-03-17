@@ -678,7 +678,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -739,7 +739,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1153,7 +1153,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1199,13 +1199,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3102353, y: 1.3299999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -1529,8 +1529,7 @@ GameObject:
   - component: {fileID: 1780345506}
   - component: {fileID: 1780345507}
   - component: {fileID: 1780345508}
-  - component: {fileID: 1780345509}
-  - component: {fileID: 1780345510}
+  - component: {fileID: 1780345513}
   - component: {fileID: 1780345511}
   - component: {fileID: 1780345512}
   m_Layer: 0
@@ -1694,32 +1693,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7652421, y: 1.6640844}
   m_EdgeRadius: 0
---- !u!114 &1780345509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780345502}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585d223ba75ac4d47921407c93767f09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chuongPosition: {fileID: 0}
-  prefabs: {fileID: 0}
---- !u!114 &1780345510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780345502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4798f1e943639147b2eae7165700de2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1780345511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1761,6 +1734,24 @@ MonoBehaviour:
   ManageHealth: {fileID: 1003196492}
   facingThreshold: 0.9
   reloadTime: 0.5
+--- !u!114 &1780345513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780345502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d2df3b9b86b514faf54bbc29072fc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 0
+  moveSpeed: 7
+  jumpForce: 14
+  ManageHealth: {fileID: 1195486705922657015, guid: b444172be29a6fc49be80a949ceb1a06, type: 3}
 --- !u!1 &1785435638
 GameObject:
   m_ObjectHideFlags: 0

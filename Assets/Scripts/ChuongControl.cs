@@ -19,6 +19,8 @@ public class ChuongControl : MonoBehaviour
 
     private float timeVanChuong = 0;
     private float timeComplete = 0;
+    private float mana = 0;
+    private float damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class ChuongControl : MonoBehaviour
         if (Input.GetKey(KeyCode.F) && speed == 0)
         {
             timeVanChuong += Time.deltaTime;
+            mana += Time.deltaTime*10;
             if (timeVanChuong > 0.48f)
             {
                 speedChangeSize = 2;
@@ -53,6 +56,7 @@ public class ChuongControl : MonoBehaviour
             }
             else
             {
+                mana = 5f;
                 timeComplete = timeVanChuong;
             }
 
@@ -80,18 +84,28 @@ public class ChuongControl : MonoBehaviour
             transform.localScale = new Vector2(transform.localScale.x + Time.deltaTime * speedChangeSize, transform.localScale.y + Time.deltaTime * speedChangeSize);
         }
         coll.radius = gameObject.transform.localScale.x * (0.23f / 0.8f);
+
+        if (speed > 0 && mana != 0)
+        {
+            ManageHealth.Manage_Mana(1, -1*mana);
+            damage = mana * 3;
+            mana = 0;
+        }
+        
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(Player2))
         {
-            ManageHealth.Manage_HP(2, -20f);
+            Debug.Log(damage);
+            ManageHealth.Manage_HP(2, -1* damage);
             gameObject.SetActive(false);
             speed = 0; 
             speedChangeSize = 0; 
             timeVanChuong = 0;
             transform.localScale = size;
+            damage = 0;
         }
     }
 

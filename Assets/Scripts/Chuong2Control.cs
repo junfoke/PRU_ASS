@@ -18,6 +18,9 @@ public class Chuong2Control : MonoBehaviour
     private float timeVanChuong = 0;
     private float timeComplete = 0;
     private bool isMoving;
+
+    private float mana = 0;
+    private float damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +37,10 @@ public class Chuong2Control : MonoBehaviour
         {
             anim.SetBool("shoot", true);
         }
-
+        if (Input.GetKey(KeyCode.Keypad6))
+        {
+            mana += Time.deltaTime * 10;
+        }
         if (Input.GetKeyUp(KeyCode.Keypad6))
         {
             isMoving = true;
@@ -50,6 +56,7 @@ public class Chuong2Control : MonoBehaviour
                 speed = 10;
                 timeVanChuong = 0;
                 isMoving = false;
+
             }
         }
 
@@ -57,12 +64,18 @@ public class Chuong2Control : MonoBehaviour
                     transform.position.x - Time.deltaTime * speed,
                     transform.position.y
                 );
+        if (speed > 0 && mana != 0)
+        {
+            ManageHealth.Manage_Mana(1, -1 * mana);
+            damage = mana * 3;
+            mana = 0;
+        }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag(Player1))
         {
-            ManageHealth.Manage_HP(1, -20f);
+            ManageHealth.Manage_HP(1, -1*damage);
             gameObject.SetActive(false);
             speed = 0;
             timeVanChuong = 0;
