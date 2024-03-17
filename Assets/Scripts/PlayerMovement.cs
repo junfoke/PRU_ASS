@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpForce = 14f;
 
-    private enum MovementState { idle, left, right, dam, da, jump, fall }
+    private enum MovementState { idle, left, right, dam, da }
     private enum MovementStateShoot { idle, kame, banChuong }
     private MovementState state = MovementState.idle;
     float action = 0f;
@@ -59,17 +59,17 @@ public class PlayerMovement : MonoBehaviour
             action = 1f; // Hành động da
         }
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKey(KeyCode.W)) && IsGrounded())
+        if (Input.GetKey(KeyCode.W) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKey(KeyCode.L))
         {
             shootAction = 1f;
         }
 
-        if (Input.GetKeyUp(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.L))
         {
             shootAction = 2f;
         }
@@ -111,14 +111,6 @@ public class PlayerMovement : MonoBehaviour
             shootState = MovementStateShoot.idle;
         }
 
-        if (rb.velocity.y > .1f)
-        {
-            state = MovementState.jump;
-        }
-        else if (rb.velocity.y < -.1f)
-        {
-            state = MovementState.fall;
-        }
 
         anim.SetInteger("shootState", (int)shootState);
         anim.SetInteger("state", (int)state); // Cập nhật trạng thái hoạt hình

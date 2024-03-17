@@ -63,12 +63,12 @@ public class Player2Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (Input.GetKey(KeyCode.Keypad6))
+        if (Input.GetKey(KeyCode.Keypad3))
         {
             shootAction = 1f;
         }
 
-        if (Input.GetKeyUp(KeyCode.Keypad6))
+        if (Input.GetKeyUp(KeyCode.Keypad3))
         {
             shootAction = 2f;
         }
