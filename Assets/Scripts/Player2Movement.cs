@@ -76,8 +76,17 @@ public class Player2Movement : MonoBehaviour
         // Thay đổi vận tốc của đối tượng
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
-        // Cập nhật trạng thái hoạt hình của đối tượng
-        UpdateAnimationState(dirX, action, shootAction);
+        //Player Death
+        if (GameStart.Player2_Resource.HP <= 0)
+        {
+            anim.SetInteger("death2", 2);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            // Cập nhật trạng thái hoạt hình của đối tượng
+            UpdateAnimationState(dirX, action, shootAction);
+        }
     }
 
     private bool IsGrounded()

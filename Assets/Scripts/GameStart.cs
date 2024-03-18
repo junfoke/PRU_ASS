@@ -14,8 +14,8 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player1_Resource = new Player(100, 100);
-        Player2_Resource = new Player(100, 100);
+        Player1_Resource = new Player(500, 100);
+        Player2_Resource = new Player(500, 100);
     }
 
     // Update is called once per frame

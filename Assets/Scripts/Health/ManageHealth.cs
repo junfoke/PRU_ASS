@@ -22,7 +22,7 @@ public class ManageHealth : MonoBehaviour
         if (player_number == 1)
         {
             //Player 1
-            if (GameStart.Player1_Resource.HP + amount > 100) return;
+            if (GameStart.Player1_Resource.HP + amount > 500) return;
             if (GameStart.Player1_Resource.HP + amount < 0) 
             { 
                 GameStart.Player1_Resource.HP = 0;
@@ -35,7 +35,7 @@ public class ManageHealth : MonoBehaviour
         else
         {
             //Player 2
-            if (GameStart.Player2_Resource.HP + amount > 100) return;
+            if (GameStart.Player2_Resource.HP + amount > 500) return;
             if (GameStart.Player2_Resource.HP + amount < 0) 
             { 
                 GameStart.Player2_Resource.HP = 0;
@@ -81,8 +81,8 @@ public class ManageHealth : MonoBehaviour
 
     public void Reset_Resouce()
     {
-        HP_Player1_Image.fillAmount = GameStart.Player1_Resource.HP / 100;
-        HP_Player2_Image.fillAmount = GameStart.Player2_Resource.HP / 100;
+        HP_Player1_Image.fillAmount = GameStart.Player1_Resource.HP / 500;
+        HP_Player2_Image.fillAmount = GameStart.Player2_Resource.HP / 500;
         Mana_Player1_Image.fillAmount = GameStart.Player1_Resource.Mana / 100;
         Mana_Player2_Image.fillAmount = GameStart.Player2_Resource.Mana / 100;
     }
